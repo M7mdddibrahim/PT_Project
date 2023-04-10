@@ -30,11 +30,7 @@ bool CellPosition::SetVCell(int v)
 {
 	///TODO: Implement this function as described in the .h file (don't forget the validation)
 	return false; // this line sould be changed with your implementation
-	//Test
-	//Test2
-	//Test3
-	//test 4
-	//test 5
+	// hhhtk
 }
 
 bool CellPosition::SetHCell(int h) 
