@@ -33,6 +33,8 @@ bool CellPosition::SetVCell(int v)
 	//Test
 	//Test2
 	//Test3
+	//test 4
+	//test 5
 }
 
 bool CellPosition::SetHCell(int h) 
