@@ -20,7 +20,7 @@ void Input::GetPointClicked(int &x, int &y) const
 
 ////////////////////////////////////////////////////////////////////////////////////////// 
 
-string Input::GetSrting(Output *pO) const 
+string Input::GetString(Output *pO) const 
 {
 	string Label;
 	char Key;
@@ -45,6 +45,7 @@ string Input::GetSrting(Output *pO) const
 int Input::GetInteger(Output *pO) const 
 {
 	string strng;
+	strng = GetString(*pO);
 	int num = stoi(strng);
 
 
@@ -155,7 +156,8 @@ CellPosition Input::GetCellClicked() const
 		{
 			///TODO: SetHCell and SetVCell of the object cellPost appropriately
 			//       using the coordinates x, y and the appropriate variables of the UI_Info Object (UI)
-
+			bool ver = cellPos.SetVCell(y);
+			bool hor = cellPos.SetHCell(x);
 
 		}
 	}
