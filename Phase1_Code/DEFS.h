@@ -14,13 +14,24 @@ enum ActionType // The actions supported (add more as needed)
 	ADD_CARD,		// Add Card Action	
 	EXIT,			// Exit Application
 	TO_PLAY_MODE,	// Go to Play Mode
+	COPY_CARD,
+	CUT_CARD,
+	PASTE_CARD,
+	DELETE_GAME_OBJECT,
+	SAVE_GRID,
+	OPEN_GRID,
+
 
 	///TODO: Add more action types of Design Mode
 
 	//  [2] Actions of Play Mode
 
 	ROLL_DICE,		// Roll Dice Action
-	TO_DESIGN_MODE,	// Go to Design Mode
+	SWITCH_TO_DESIGN_MODE,	// Go to Design Mode
+	NEW_GAME,
+	DICE_VALUE,
+
+	
 
 	///TODO: Add more action types of Play Mode
 

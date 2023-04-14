@@ -12,7 +12,6 @@ class Input;
 class Output	// The application manager & grid (phase 2) should have a pointer to this class
 {
 private:	
-
 	window* pWind;	// Pointer to the Graphics Window
 	
 	// ========== Some Utility Functions (Private Functions) ==========
