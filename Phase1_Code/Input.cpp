@@ -45,7 +45,7 @@ string Input::GetString(Output *pO) const
 int Input::GetInteger(Output *pO) const 
 {
 	string strng;
-	strng = GetString(*pO);
+	strng = GetString(pO);
 	int num = stoi(strng);
 
 

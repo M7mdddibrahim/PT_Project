@@ -284,10 +284,10 @@ int main()
 			pOut->PrintMessage("Action: ROLL_DICE , Click anywhere");
 			break;
 
-		case TO_DESIGN_MODE:
+		/*case TO_DESIGN_MODE:
 			pOut->PrintMessage("Action: TO_DESIGN_MODE , Click anywhere");
 			pOut->CreateDesignModeToolBar();
-			break;
+			break;*/
 
 			///TODO:  ADD Cases similarly for ALL the remaining actions of PLAY Mode
 

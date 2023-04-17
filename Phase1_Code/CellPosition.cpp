@@ -33,7 +33,8 @@ bool CellPosition::SetVCell(int v)
 	}
 	else{
 	///TODO: Implement this function as described in the .h file (don't forget the validation)
-		VCell = v;// this line sould be changed with your implementation
+		this->vCell = v;// this line sould be changed with your implementation
+		return true;
 	}
 }
 
@@ -45,7 +46,8 @@ bool CellPosition::SetHCell(int h)
 	return false; // this line sould be changed with your implementation
 	}
 	else {
-		HCell = h;
+		this->hCell= h;
+		return true;
 	}
 }
 
