@@ -395,7 +395,7 @@ void Output::DrawPlayer(const CellPosition & cellPos, int playerNum, color playe
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
-
+///////////
 void Output::DrawLadder(const CellPosition & fromCell, const CellPosition & toCell) const
 {
 
