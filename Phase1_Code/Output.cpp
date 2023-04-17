@@ -1,6 +1,8 @@
 #include "Output.h"
-
+#include"CellPosition.h"
 #include "Input.h"
+#include<iostream>;
+using namespace std; 
 
 ////////////////////////////////////////////////////////////////////////////////////////// 
 
@@ -99,18 +101,25 @@ Input* Output::CreateInput() const
 
 int Output::GetCellStartX(const CellPosition & cellPos) const
 {
-	///TODO: implement the following function as described in Output.h file
-
-	return 0; // this line should be changed with your implementation
+	///TODO: implement the following function as described in Output.h file;
+	int h = cellPos.HCell();
+	return h*110;
+	
 }
+
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
 int Output::GetCellStartY(const CellPosition & cellPos) const
 {
-	///TODO: implement the following function as described in Output.h file
+	int v = cellPos.VCell();
+	int v2 = (v * 55) + 55;
+	return v2;
+	/*int v = (8 - cellPos.VCell()) * UI.CellHeight;
+	int v2 = v+ UI.ToolBarHeight;
+	return v2;*/
 
-	return 0; // this line should be changed with your implementation
+            // this line should be changed with your implementation
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -130,9 +139,7 @@ void Output::DrawCardNumber(const CellPosition & cellPos, int cardNum) const
 
 	///TODO: Calculate the Width & Height of the integer "cardNum" if written using the Current Font
 	//       (Use GetIntegerSize() window function) and set the "w" and "h" variables with its width and height
-
-
-
+	pWind->GetIntegerSize(w,h,cardNum);
 	// Calculate where to write the integer of the cardNum
 	int x = cellStartX + UI.CellWidth - UI.LadderXOffset - w - 5; // Before the End vertical line of a ladder 
 	                                                              // (assuming the case where ladder is inside the cell)
@@ -140,9 +147,8 @@ void Output::DrawCardNumber(const CellPosition & cellPos, int cardNum) const
 
 
 	///TODO: Draw the Integer the representing the "cardNum" in the location (x,y)
+		pWind->DrawInteger(x, y,cardNum);
 	
-
-
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -201,18 +207,21 @@ void Output::CreateDesignModeToolBar() const
 	string MenuItemImages[DESIGN_ITM_COUNT];
 	MenuItemImages[ITM_ADD_LADDER] = "images\\Menu_Ladder.jpg";	
 	MenuItemImages[ITM_ADD_SNAKE] = "images\\Menu_Snake.jpg";	
-	MenuItemImages[ITM_ADD_CARD] = "images\\Menu_Card.jpg";	
+	MenuItemImages[ITM_ADD_CARD] = "images\\Menu_Card.jpg";
+	MenuItemImages[ITM_COPY_CARD] = "images\\Menu_Copy.jpg";
+	MenuItemImages[ITM_CUT_CARD] = "images\\Menu_Cut.jpg";
+	MenuItemImages[ITM_PASTE_CARD] = "images\\Menu_Paste.jpg";
+	MenuItemImages[ITM_DELETE_GAME] = "images\\Menu_Delete.jpg";
+	MenuItemImages[ITM_SAVE_GRID] = "images\\Menu_Save.jpg";
+	MenuItemImages[ITM_OPEN_GRID] = "images\\Menu_Open.jpg";
 	MenuItemImages[ITM_EXIT] = "images\\Menu_Exit.jpg";
 	MenuItemImages[ITM_SWITCH_TO_PLAY_MODE] = "images\\Menu_SwitchToGame.jpg";
 
 	///TODO: Prepare images for each menu item and add it to the list
 
-
-
 	// Draw menu item one image at a time
 	for(int i=0; i < DESIGN_ITM_COUNT; i++)
 		pWind->DrawImage(MenuItemImages[i], i*UI.MenuItemWidth, 0, UI.MenuItemWidth, UI.ToolBarHeight);
-
 
 }
 
@@ -233,8 +242,10 @@ void Output::CreatePlayModeToolBar() const
 	// ** MAKE SURE THAT THE IMAGES ARE .JPG FILES **
 	string MenuItemImages[PLAY_ITM_COUNT];
 	MenuItemImages[ITM_ROLL_DICE] = "images\\Menu_Dice.jpg";
+	MenuItemImages[ITM_INPUT_DICE_VALUE] = "images\\Menu_Roll_Dice.jpg";
+	MenuItemImages[ITM_NEW_GAME] = "images\\Menu_New_Game.jpg";
 	MenuItemImages[ITM_SWITCH_TO_DESIGN_MODE] = "images\\Menu_SwitchToGrid.jpg";
-
+	MenuItemImages[ITM_EXIT] = "images\\Menu_Exit.jpg";
 	///TODO: Prepare images for each menu item and add it to the list
 
 
@@ -262,10 +273,9 @@ void Output::PrintMessage(string msg) const	//Prints a message on status bar
 void Output::PrintPlayersInfo(string info)
 {
 	///TODO: Clear what was written on the toolbar
-
 	// One of the correct ways to implement the above TODO is to call CreatePlayModeToolBar(); 
 	// to clear what was written in the player info (there are other ways too – You are free to use any)
-
+	
 	// Set the pen and font before drawing the string on the window
 	pWind->SetPen(UI.PlayerInfoColor); 
 	pWind->SetFont(20, BOLD , BY_NAME, "Verdana");   
@@ -275,16 +285,18 @@ void Output::PrintPlayersInfo(string info)
 	///TODO: Calculate the Width and Height of the string if drawn using the current font 
 	//       (Use GetStringSize() window function) and set the "w" and "h" variables with its width and height
 
-
-
+	
 	// Set the start X & Y coordinate of drawing the string
 	int x = UI.width - w - 20; // space 20 before the right-side of the window
 	                           // ( - w ) because x is the coordinate of the start point of the string (upper left)
 	int y = (UI.ToolBarHeight - h) / 2; // in the Middle of the toolbar height
 
+
 	///TODO: Draw the string "info" in the specified location (x, y)
+	
 
 
+	
 
 }
 
@@ -307,9 +319,8 @@ void Output::DrawCell(const CellPosition & cellPos, int cardNum) const
 		pWind->SetBrush(UI.CellColor_HasCard);
 
 	///TODO: Draw the Cell Rectangle using the appropriate coordinates
-	
 
-
+	pWind->DrawRectangle(cellStartX, cellStartY, (cellStartX + UI.CellWidth), (cellStartY + UI.CellHeight), FILLED);
 	// ----- 2- Draw the CELL number (the small number at the bottom right of the cell) -----
 	pWind->SetPen(UI.CellNumColor);
 	pWind->SetFont(UI.CellNumFont, BOLD , BY_NAME, "Verdana");   
@@ -319,20 +330,24 @@ void Output::DrawCell(const CellPosition & cellPos, int cardNum) const
 	///TODO: Get the Width and Height of the Cell Number if written using the current font 
 	//       (Use GetIntegerSize() window function) and set the "w" and "h" variables with its width and height
 
-
-
+	pWind->GetIntegerSize(w, h, UI.CellNumFont);
+	
+	
+	
+	
 	// Calculate X & Y coordinate of the start point of writing the card number (upper left point of the cell num)
 	int x = cellStartX + (UI.CellWidth - w - 1);   // space 1 from the end of the cell width
 												   // ( - w ) because x is for the start point of cell num (num's left corner)
 	int y = cellStartY + (UI.CellHeight - h - 1);  // space 1 from the end of the cell height
-												   // ( - w ) because y is for the start point of cell num (num's upper corner)
+			         							   // ( - w ) because y is for the start point of cell num (num's upper corner)
 	
 	///TODO: Draw the cell number in the x and y location
-
 	
+	pWind->DrawInteger(x, y, cellNum);
 
+			
 	// ----- 3- Draw card number (if any) -----
-	if (cardNum != -1) // Note: cardNum -1 means no card
+	if (cardNum != -1)  // Note: cardNum -1 means no card
 		DrawCardNumber(cellPos, cardNum);
 }
 
@@ -342,8 +357,9 @@ void Output::DrawPlayer(const CellPosition & cellPos, int playerNum, color playe
 {
 
 	///TODO: Validate the playerNum, if not valid return
+	if (playerNum < 0 || playerNum > 3)
+		return;
 
-	
 
 	// Get the X & Y coordinates of the start point of the cell (its upper left corner)
 	int cellStartX = GetCellStartX(cellPos);
@@ -373,7 +389,8 @@ void Output::DrawPlayer(const CellPosition & cellPos, int playerNum, color playe
 
 	///TODO: Draw the player circle in center(x,y) and filled with the playerColor passed to the function
 
-
+	pWind->SetBrush(playerColor);
+	pWind->DrawCircle(x, y, radius, FILLED);
 	
 }
 
@@ -383,7 +400,8 @@ void Output::DrawLadder(const CellPosition & fromCell, const CellPosition & toCe
 {
 
 	///TODO: Validate the Cell Position (Must be Vertical Cells AND toCell above fromCell, otherwise, Do NOT draw)
-	
+	if (fromCell.HCell() < toCell.HCell() || fromCell.VCell() != toCell.VCell())
+		return;
 
 	
 	// Get the start X and Y coordinates of the upper left corner of the fromCell
@@ -393,17 +411,19 @@ void Output::DrawLadder(const CellPosition & fromCell, const CellPosition & toCe
 	// Get the start Y coordinates of the upper left corner of the toCell (the X should be the same as fromCell .. Vertical)
 	int toStartY = GetCellStartY(toCell);
 
+
 	// ---- 1- Draw the First Vertical Line ---- 
 	int x12 = cellStartX + UI.LadderXOffset; // the two points have the same x (vertical)
 	int y1 = fromStartY + UI.LadderYOffset;  // the coordinate y of the first point of the First Vertical line
-	int y2 = toStartY + UI.CellHeight - UI.LadderYOffset; // the coordinate y of the second point of the First Vertical line
+	int y2 = toStartY  - UI.LadderYOffset; // the coordinate y of the second point of the First Vertical line
+
 
 	///TODO: Set pen color and width using the appropriate parameters of UI_Info object (UI)
-
+	pWind->SetPen(UI.LadderColor, UI.LadderlineWidth);
 
 
 	///TODO: Draw The First Vertical Line (The Left Line) in the appropriate coordinates
-
+	pWind->DrawLine(x12, y1, x12, y2);
 
 
 	// ---- 2- Draw the Second Vertical Line ---- 
@@ -411,11 +431,11 @@ void Output::DrawLadder(const CellPosition & fromCell, const CellPosition & toCe
 	                                                        // the y coordinates is the same as the First Vertical Line
 
 	///TODO: Set pen color and width using the appropriate variables of UI_Info object (UI)
-
-
+	pWind->SetPen(UI.LadderColor, UI.LadderlineWidth);
 
 	///TODO: Draw The Second Vertical Line (The Right Line) in the appropriate coordinates
 
+	pWind->DrawLine(x34, y1, x34, y2);
 
 
 	// ---- 3- Draw the Cross Horizontal Lines ---- 
@@ -425,6 +445,10 @@ void Output::DrawLadder(const CellPosition & fromCell, const CellPosition & toCe
 
 	///TODO: Draw the cross horizontal lines of the ladder using the appropriate coordinates
 
+	for (int i = fromStartY; i >= toStartY; i -= UI.CellHeight)
+	{
+		pWind->DrawLine(x12, i, x34, i);
+	}
 
 	
 }
@@ -435,12 +459,16 @@ void Output::DrawSnake(const CellPosition & fromCell, const CellPosition & toCel
 {
 
 	///TODO: Validate the fromCell and toCell (Must be Vertical and toCell is below fromCell otherwise do NOT draw)
-	
+	if (fromCell.HCell() != toCell.HCell() || fromCell.VCell() < toCell.VCell())
+	{
+		return;
+	}
+
 
 
 	// Get the upper left corner coordinates of the fromCell and toCell
 	int cellStartX = GetCellStartX(fromCell); // same for fromCell and toCell (vertical)
-	int fromStartY = GetCellStartY(fromCell);
+	int fromStartY =  GetCellStartY(fromCell);
 	int toStartY = GetCellStartY(toCell);
 
 	// ---- 1- Draw Line representing the Snake Body ----
@@ -451,12 +479,11 @@ void Output::DrawSnake(const CellPosition & fromCell, const CellPosition & toCel
 	int y2 = toStartY + UI.CellHeight/2;
 
 	///TODO: Set pen color and width from the appropriate variables of the UI_Info object (UI)
-
-
+	pWind->SetPen(UI.SnakeColor, UI.SnakelineWidth);
 
 	///TODO: Draw the Line representing the Snake BOdy
 	
-
+	pWind->DrawLine(x12, y1, x12, y2);
 
 	// ---- 2- Draw Polygon with Diamond Shape representing the Snake Head ----
 
@@ -470,13 +497,15 @@ void Output::DrawSnake(const CellPosition & fromCell, const CellPosition & toCel
 	///TODO: Set the coordinates of the 4 points of the Polygon
 	//       Check the snakes drawn in the project document and draw it the same way
 
-
+	int x = y1 + yChange;
+	int b[4] = { y1,x, x + yChange, x };
+	int a[4] = { x12,x12 - xChange, x12, x12 + xChange };
 
 
 	///TODO: Draw the Polygon (diamond) representing the Snake's Head
 	//       Check the snakes drawn in the project document and draw it the same way
 
-
+	pWind->DrawPolygon(a, b, 4, FILLED);
 
 }
 

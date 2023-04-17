@@ -25,18 +25,18 @@ enum DESIGN_MODE_ITEMS // The items of the Design Mode (you should add more item
 	ITM_ADD_LADDER,
 	ITM_ADD_SNAKE,
 	ITM_ADD_CARD,
-	ITM_EXIT,
-	ITM_SWITCH_TO_PLAY_MODE,
 	ITM_COPY_CARD,
 	ITM_CUT_CARD,
 	ITM_PASTE_CARD,
-	ITM_DELETE_GAME_OBJECT,
+	ITM_DELETE_GAME,
 	ITM_SAVE_GRID,
 	ITM_OPEN_GRID,
-	
+	ITM_EXIT,
+	ITM_SWITCH_TO_PLAY_MODE,
+
 	///TODO: Add more items names here
 
-	DESIGN_ITM_COUNT	// no. of items ==> This should be the last line in this enum
+	DESIGN_ITM_COUNT // no. of items ==> This should be the last line in this enum
 };
 
 enum PLAY_MODE_ITEMS // The items of the Play Mode (you should add more items)
@@ -45,10 +45,10 @@ enum PLAY_MODE_ITEMS // The items of the Play Mode (you should add more items)
 	// If you want to change the menu items order, change the order here
 
 	ITM_ROLL_DICE,
-	ITM_SWITCH_TO_DESIGN_MODE,
+	ITM_INPUT_DICE_VALUE,
 	ITM_NEW_GAME,
-	ITM_DICE_VALUE,
-	ITM_DEXIT,
+	ITM_SWITCH_TO_DESIGN_MODE,
+
 
 	///TODO: Add more items names here
 

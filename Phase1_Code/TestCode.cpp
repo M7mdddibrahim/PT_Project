@@ -50,6 +50,12 @@ int main()
 	///       to draw cells in cell locations of: card_1, card_2, ..., card_10 declared above
 	///       with cardNum 1, 2, 3, 4 and 10 respectively
 
+	pOut->DrawCell(card_1, 1);
+	pOut->DrawCell(card_2, 2);
+	pOut->DrawCell(card_3, 3);
+	pOut->DrawCell(card_4, 4);
+	pOut->DrawCell(card_10, 10);
+
 
 
 	pOut->PrintMessage("FINISHED - Drawing (Cells with CARDS) Test,  Click to continue");
@@ -65,6 +71,7 @@ int main()
 	CellPosition player_99 (2, 5);
 
 
+
 	///TODO: Call Function DrawPlayer of Class Ouput Multiple Times
 	///       to draw the following players:
 	///       playerNum (0) with color (PlayerColors[0] defined in UI object) in cell position (player_1 declared above) 
@@ -75,6 +82,11 @@ int main()
 	///       playerNum (1) with color (PlayerColors[1] defined in UI object) in cell position (player_99 declared above) 
 	///       playerNum (5) with color (PlayerColors[1] defined in UI object) in cell position (player_99 declared above) --> Invalid
 	///       playerNum (-1) with color (PlayerColors[1] defined in UI object) in cell position (player_99 declared above) --> Invalid
+
+	pOut->DrawPlayer(player_1, 0, GOLD);
+	pOut->DrawPlayer(player_1, 1, DARKSLATEBLUE);
+	pOut->DrawPlayer(player_1, 2, KHAKI);
+	pOut->DrawPlayer(player_1, 3, CHOCOLATE);
 	
 
 	pOut->PrintMessage("FINISHED - Drawing (Players) Test,  Click to continue");
@@ -98,7 +110,8 @@ int main()
 	///       a ladder from start_89 to end_99 declared above --> INVALID because NOT vertical
 	///       a ladder from end_34 to start_89 declared above --> valid
 	
-
+	pOut->DrawLadder(start_22, end_99);
+	pOut->DrawLadder(end_34, start_89);
 
 	pOut->PrintMessage("FINISHED - Drawing (Ladders) Test,  Click to continue");
 	pIn->GetPointClicked(x,y);	//Wait for any click
@@ -120,7 +133,7 @@ int main()
 	///       a snake from start_98 to end_32 declared above
 	///       a snake from start_98 to end_2 declared above (invalid)
 	///       a snake from end_2 to start_24 declared above (invalid)
-	
+	pOut->DrawSnake(start_24, end_2);
 
 
 	pOut->PrintMessage("FINISHED - Drawing (Snakes) Test,  Click to continue");
@@ -145,7 +158,7 @@ int main()
 	// 2- Print it in the status bar in this format:   You Entered: 116
 	//    (assuming the entered number is 116)
 	// 3- Call GetPointClicked() function
-
+	
 
 
 	pOut->PrintMessage("FINISHED - (GetInteger) Test, Click to continue");
@@ -204,6 +217,38 @@ int main()
 	// 4- Call GetPointClicked()
 	// 5- Repeat the above steps FIVE TIMES
 	// 6- Repeat all the above steps to test SetHCell() function instead with the needed modifications
+	int V1, H1;
+	for (int i = 0; i < 6; i++)
+	{
+		pOut->PrintMessage("Enter an Integer");
+		V1 = pIn->GetInteger(pOut);
+		bool isAssigned = cellpos_1.SetVCell(V1);
+		if (isAssigned)
+		{
+			pOut->PrintMessage("Now the vCell = " + to_string(cellpos_1.VCell()));
+		}
+		else
+		{
+			pOut->PrintMessage("Out of Grid");
+		}
+		pIn->GetPointClicked(x, y);
+	}
+	for (int i = 0; i < 6; i++)
+	{
+		pOut->PrintMessage("Enter an Integer");
+		H1 = pIn->GetInteger(pOut);
+		bool isAssigned = cellpos_1.SetHCell(H1);
+		if (isAssigned)
+		{
+			pOut->PrintMessage("Now the hCell = " + to_string(cellpos_1.HCell()));
+		}
+		else
+		{
+			pOut->PrintMessage("Out of Grid");
+		}
+		pIn->GetPointClicked(x, y);
+	}
+
 
 	pOut->PrintMessage("FINISHED - (Setters with Validation) Test, Click to continue");
 	pIn->GetPointClicked(x,y);	//Wait for any click
@@ -217,6 +262,19 @@ int main()
 	// 3- Use the function GetCellNum() to get the corresponding Cell Number (it used function : GetCellNumFromPosition() inside it)
 	// 4- Print the Cell Number on the status bar
 	// 5- Repeat the above steps Five TIMES
+	int H2;
+	int V2;
+
+	for (int i = 0; i < 6; i++)
+	{
+		pOut->PrintMessage("Enter an vCell");
+		V2 = pIn->GetInteger(pOut);
+		pOut->PrintMessage("Enter an hCell");
+		H2 = pIn->GetInteger(pOut);
+		CellPosition NewCoord(V2, H2);
+		int cellnum = NewCoord.GetCellNum();
+		pOut->PrintMessage("CellNum = " + to_string(cellnum));
+	}
 
 	pOut->PrintMessage("FINISHED - (GetCellNumFromPosition) Test, Click to continue");
 	pIn->GetPointClicked(x,y);	//Wait for any click
@@ -230,6 +288,17 @@ int main()
 	//   --> it uses the function : GetCellPositionFromNum () inside it
 	// 4- Print the Cell vCell and hCell on the status bar
 	// 5- Repeat the above steps Five TIMES
+
+	int CN;
+	for (int i = 0; i < 6; i++)
+	{
+		pOut->PrintMessage("Enter an CellNum");
+		CN = pIn->GetInteger(pOut);
+		CellPosition NewCN(CN);
+		int H = NewCN.HCell();
+		int V = NewCN.VCell();
+		pOut->PrintMessage("cell is at postion, V: " + to_string(V) + " H: " + to_string(H));
+	}
 
 	pOut->PrintMessage("FINISHED - (GetCellPositionFromNum) Test, Click to continue");
 	pIn->GetPointClicked(x,y);	//Wait for any click
@@ -263,6 +332,30 @@ int main()
 			pOut->PrintMessage("Action: ADD_CARD , Click anywhere");
 			break;
 
+		case COPY_CARD:
+			pOut->PrintMessage("Action: COPY_CARD, Click anywhere");
+			break;
+
+		case CUT_CARD:
+			pOut->PrintMessage("Action: CUT_CARD, Click anywhere");
+			break;
+
+		case PASTE_CARD:
+			pOut->PrintMessage("Action: PASTE_CARD, Click anywhere");
+			break;
+
+		case DELETE_GAME:
+			pOut->PrintMessage("Action: DELETE_GAME, Click anywhere");
+			break;
+
+		case SAVE_GRID:
+			pOut->PrintMessage("Action: SAVE_GRID, Click anywhere");
+			break;
+
+		case OPEN_GRID:
+			pOut->PrintMessage("Action: OPEN_GRID, Click anywhere");
+			break;
+
 		case EXIT:				
 			break;
 
@@ -270,6 +363,7 @@ int main()
 
 			pOut->PrintMessage("Action: TO_PLAY_MODE , Click anywhere");
 			pOut->CreatePlayModeToolBar();
+			
 
 			///TODO:  Call Function (PrintPlayersInfo) of Class Output with a string similar to 
 			//        the one given in the screenshot of project document 
@@ -279,22 +373,31 @@ int main()
 
 			///TODO:  ADD Cases similarly for ALL the remaining actions of DESIGN Mode
 
-
 		case ROLL_DICE:
 			pOut->PrintMessage("Action: ROLL_DICE , Click anywhere");
 			break;
 
-		/*case TO_DESIGN_MODE:
+		case INPUT_DICE_VALUE:
+			pOut->PrintMessage("Action: INPUT_DICE_VALUE, Click anywhere");
+			break;
+
+		case NEW_GAME:
+			pOut->PrintMessage("Action: NEW_GAME, Click anywhere");
+			break;
+
+		case TO_DESIGN_MODE:
 			pOut->PrintMessage("Action: TO_DESIGN_MODE , Click anywhere");
 			pOut->CreateDesignModeToolBar();
-			break;*/
+			break;
+
+
 
 			///TODO:  ADD Cases similarly for ALL the remaining actions of PLAY Mode
 
 		}
 	}while(ActType != EXIT);
 
-
+	
 	/// Exiting
 	pOut->PrintMessage("Action: EXIT, test is finished, click anywhere to exit");
 	pIn->GetPointClicked(x,y);

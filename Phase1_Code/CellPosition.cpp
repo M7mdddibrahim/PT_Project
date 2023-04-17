@@ -28,26 +28,28 @@ CellPosition::CellPosition (int cellNum)
 
 bool CellPosition::SetVCell(int v) 
 {
-	if (v > 9 || v < 0) {
+	///TODO: Implement this function as described in the .h file (don't forget the validation)
+	if (v > 9 || v < 0)
+	{
 		return false;
 	}
-	else{
-	///TODO: Implement this function as described in the .h file (don't forget the validation)
-		this->vCell = v;// this line sould be changed with your implementation
-		return true;
+	else {
+		this->vCell = v;
+		return true; 
 	}
+
 }
 
 bool CellPosition::SetHCell(int h) 
 {
 	///TODO: Implement this function as described in the .h file (don't forget the validation)
-	if(h>10 || h<0){
-
-	return false; // this line sould be changed with your implementation
+	if (h > 10 || h < 0)
+	{
+		return false; 
 	}
 	else {
-		this->hCell= h;
-		return true;
+		this->hCell = h;
+		return true; 
 	}
 }
 
@@ -70,7 +72,7 @@ bool CellPosition::IsValidCell() const
 	}
 	else
 	{
-		return false; // this line sould be changed with your implementation
+		return false;
 	}
 }
 
@@ -90,7 +92,7 @@ int CellPosition::GetCellNumFromPosition(const CellPosition & cellPosition)
 
 	
 
-	return 0; // this line should be changed with your implementation
+	return 89-(cellPosition.vCell*11)+ cellPosition.hCell; // this line should be changed with your implementation
 }
 
 CellPosition CellPosition::GetCellPositionFromNum(int cellNum)
@@ -101,7 +103,18 @@ CellPosition CellPosition::GetCellPositionFromNum(int cellNum)
 
 	/// TODO: Implement this function as described in the .h file
 
-
+	for (int i = 0; i < NumVerticalCells; i++)
+	{
+		for (int j = 0; j < NumHorizontalCells; j++)
+		{
+			if ((89 - (i * NumHorizontalCells) + j) == cellNum)
+			{
+				position.SetVCell(i);
+				position.SetHCell(j);
+				break;
+			}
+		}
+	}
 
 	// Note: use the passed cellNum to set the vCell and hCell of the "position" variable declared inside the function
 	//       I mean: position.SetVCell(...) and position.SetHCell(...) then return it
@@ -114,7 +127,11 @@ void CellPosition::AddCellNum (int addedNum)
 {
 	
 	/// TODO: Implement this function as described in the .h file
-
+	int newcell = GetCellNum() + addedNum;
+	CellPosition newpos;
+	newpos.GetCellPositionFromNum(newcell);
+	SetVCell(newpos.VCell());
+	SetHCell(newpos.HCell());
 
 
 	// Note: this function updates the data members (vCell and hCell) of the calling object
