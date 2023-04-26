@@ -1,6 +1,8 @@
 #include "Input.h"
 
 #include "Output.h"
+using namespace std;
+#include<iostream>
 
 //======================================================================================//
 //								General Functions									    //
@@ -44,7 +46,7 @@ string Input::GetSrting(Output *pO) const
 
 int Input::GetInteger(Output *pO) const 
 {
-	string strng; 
+	string strng;
 	strng = GetSrting(pO);
 	int num = stoi(strng);
 
@@ -157,8 +159,10 @@ CellPosition Input::GetCellClicked() const
 		{
 			///TODO: SetHCell and SetVCell of the object cellPost appropriately
 			//       using the coordinates x, y and the appropriate variables of the UI_Info Object (UI)
-			
+		
 
+			bool ver = cellPos.SetVCell(y);
+			bool hor = cellPos.SetHCell(x);
 
 		}
 	}

@@ -110,8 +110,10 @@ int main()
 	///       a ladder from start_89 to end_99 declared above --> INVALID because NOT vertical
 	///       a ladder from end_34 to start_89 declared above --> valid
 	
-	pOut->DrawLadder(start_22, end_99);
 	pOut->DrawLadder(end_34, start_89);
+	pOut->DrawLadder(start_89, end_99);
+	pOut->DrawLadder(start_22, end_99);
+	pOut->DrawLadder(start_89, end_34);
 
 	pOut->PrintMessage("FINISHED - Drawing (Ladders) Test,  Click to continue");
 	pIn->GetPointClicked(x,y);	//Wait for any click
@@ -134,6 +136,9 @@ int main()
 	///       a snake from start_98 to end_2 declared above (invalid)
 	///       a snake from end_2 to start_24 declared above (invalid)
 	pOut->DrawSnake(start_24, end_2);
+	pOut->DrawSnake(start_98, end_32);
+	pOut->DrawSnake(start_98, end_2);
+	pOut->DrawSnake(end_2, start_24);
 
 
 	pOut->PrintMessage("FINISHED - Drawing (Snakes) Test,  Click to continue");
@@ -159,6 +164,9 @@ int main()
 	//    (assuming the entered number is 116)
 	// 3- Call GetPointClicked() function
 	
+	int value = pIn->GetInteger(pOut);
+	pOut->PrintMessage("You Entered" + to_string(value));
+	pIn->GetPointClicked(x, y);
 
 
 	pOut->PrintMessage("FINISHED - (GetInteger) Test, Click to continue");
@@ -175,6 +183,20 @@ int main()
 	// 2- Print on the status bar the vCell and hCell of the clicked cell
 	// 3- Repeat Step 1 and 2 five times
 
+	CellPosition pos0 = pIn->GetCellClicked();
+	pOut->PrintMessage("position is " + to_string(pos0.VCell()) + to_string(pos0.HCell()));
+
+	CellPosition pos1 = pIn->GetCellClicked();
+	pOut->PrintMessage("position is " + to_string(pos1.VCell()) + to_string(pos1.HCell()));
+
+	CellPosition pos2 = pIn->GetCellClicked();
+	pOut->PrintMessage("position is " + to_string(pos2.VCell()) + to_string(pos2.HCell()));
+
+	CellPosition pos3 = pIn->GetCellClicked();
+	pOut->PrintMessage("position is " + to_string(pos3.VCell()) + to_string(pos3.HCell()));
+
+	CellPosition pos4 = pIn->GetCellClicked();
+	pOut->PrintMessage("position is " + to_string(pos4.VCell()) + to_string(pos4.HCell()));
 
 	pOut->PrintMessage("FINISHED - (GetCellClicked) Test, Click to continue");
 	pIn->GetPointClicked(x,y);	//Wait for any click
@@ -191,7 +213,10 @@ int main()
 	// 2- After reading the string clear the status bar
 	// 3- print on the status bar "You Entered" then print the string
 	// NOTE: GetString() is already implemented. It is just required from you to call it
-
+	string str = pIn->GetSrting(pOut);
+	pOut->ClearStatusBar();
+	pOut->PrintMessage("You Entered" + str);
+	pIn->GetPointClicked(x, y);
 
 
 	pOut->PrintMessage("FINISHED - (GetSrting) Test, Click to continue");
@@ -271,9 +296,11 @@ int main()
 		V2 = pIn->GetInteger(pOut);
 		pOut->PrintMessage("Enter an hCell");
 		H2 = pIn->GetInteger(pOut);
-		CellPosition NewCoord(V2, H2);
-		int cellnum = NewCoord.GetCellNum();
+		CellPosition* newcell = new CellPosition(V2, H2);
+		int cellnum = newcell->GetCellNum();
 		pOut->PrintMessage("CellNum = " + to_string(cellnum));
+		pIn->GetPointClicked(x, y);
+	
 	}
 
 	pOut->PrintMessage("FINISHED - (GetCellNumFromPosition) Test, Click to continue");
@@ -298,6 +325,7 @@ int main()
 		int H = NewCN.HCell();
 		int V = NewCN.VCell();
 		pOut->PrintMessage("cell is at postion, V: " + to_string(V) + " H: " + to_string(H));
+		pIn->GetPointClicked(x, y);
 	}
 
 	pOut->PrintMessage("FINISHED - (GetCellPositionFromNum) Test, Click to continue");
