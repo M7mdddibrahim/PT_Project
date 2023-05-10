@@ -7,7 +7,6 @@ This file was last modified on 05.16.1999
 #include "image.h"
 #include "error.h"
 
-
 extern "C" {
   #include "jpegload.h"
 }
