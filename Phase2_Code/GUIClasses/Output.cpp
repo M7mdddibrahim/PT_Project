@@ -202,17 +202,17 @@ void Output::CreateDesignModeToolBar() const
 	// reoder them in UI_Info.h ==> enum DESIGN_MODE_ITEMS
 	// ** MAKE SURE THAT THE IMAGES ARE .JPG FILES **
 	string MenuItemImages[DESIGN_ITM_COUNT];
-	MenuItemImages[ITM_ADD_LADDER] = "..\\images\\Menu_Ladder.jpg";	
-	MenuItemImages[ITM_ADD_SNAKE] = "..\\images\\Menu_Snake.jpg";	
-	MenuItemImages[ITM_ADD_CARD] = "..\\images\\Menu_Card.jpg";	
-	MenuItemImages[ITM_COPY_CARD] = "..\\images\\Menu_Copy.jpg";
-	MenuItemImages[ITM_CUT_CARD] = "..\\images\\Menu_Cut.jpg";
-	MenuItemImages[ITM_PASTE_CARD] = "..\\images\\Menu_Paste.jpg";
-	MenuItemImages[ITM_DELETE_GAME] = "..\\images\\Menu_Delete.jpg";
-	MenuItemImages[ITM_SAVE_GRID] = "..\\images\\Menu_Save.jpg";
-	MenuItemImages[ITM_OPEN_GRID] = "..\\images\\Menu_Open.jpg";
-	MenuItemImages[ITM_EXIT] = "..\\images\\Menu_Exit.jpg";
-	MenuItemImages[ITM_SWITCH_TO_PLAY_MODE] = "..\\images\\Menu_SwitchToGame.jpg";
+	MenuItemImages[ITM_ADD_LADDER] = "images\\Menu_Ladder.jpg";	
+	MenuItemImages[ITM_ADD_SNAKE] = "images\\Menu_Snake.jpg";	
+	MenuItemImages[ITM_ADD_CARD] = "images\\Menu_Card.jpg";	
+	MenuItemImages[ITM_COPY_CARD] = "images\\Menu_Copy.jpg";
+	MenuItemImages[ITM_CUT_CARD] = "images\\Menu_Cut.jpg";
+	MenuItemImages[ITM_PASTE_CARD] = "images\\Menu_Paste.jpg";
+	MenuItemImages[ITM_DELETE_GAME] = "images\\Menu_Delete.jpg";
+	MenuItemImages[ITM_SAVE_GRID] = "images\\Menu_Save.jpg";
+	MenuItemImages[ITM_OPEN_GRID] = "images\\Menu_Open.jpg";
+	MenuItemImages[ITM_EXIT] = "images\\Menu_Exit.jpg";
+	MenuItemImages[ITM_SWITCH_TO_PLAY_MODE] = "images\\Menu_SwitchToGame.jpg";
 
 	///TODO: Prepare images for each menu item and add it to the list
 
@@ -241,11 +241,11 @@ void Output::CreatePlayModeToolBar() const
 	// reoder them in UI_Info.h ==> enum DESIGN_MODE_ITEMS
 	// ** MAKE SURE THAT THE IMAGES ARE .JPG FILES **
 	string MenuItemImages[PLAY_ITM_COUNT];
-	MenuItemImages[ITM_ROLL_DICE] = "..\\images\\Menu_Dice.jpg";
-	MenuItemImages[ITM_INPUT_DICE_VALUE] = "..\\images\\Menu_Roll_Dice.jpg";
-	MenuItemImages[ITM_NEW_GAME] = "..\\images\\Menu_New_Game.jpg";
-	MenuItemImages[ITM_SWITCH_TO_DESIGN_MODE] = "..\\images\\Menu_SwitchToGrid.jpg";
-	MenuItemImages[ITM_EXIT] = "..\\images\\Menu_Exit.jpg";
+	MenuItemImages[ITM_ROLL_DICE] = "images\\Menu_Dice.jpg";
+	MenuItemImages[ITM_INPUT_DICE_VALUE] = "images\\Menu_Roll_Dice.jpg";
+	MenuItemImages[ITM_NEW_GAME] = "images\\Menu_New_Game.jpg";
+	MenuItemImages[ITM_SWITCH_TO_DESIGN_MODE] = "images\\Menu_SwitchToGrid.jpg";
+	MenuItemImages[ITM_EXIT] = "images\\Menu_Exit.jpg";
 
 	///TODO: Prepare images for each menu item and add it to the list
 
@@ -278,6 +278,7 @@ void Output::PrintPlayersInfo(string info)
 	// One of the correct ways to implement the above TODO is to call CreatePlayModeToolBar(); 
 	// to clear what was written in the player info (there are other ways too – You are free to use any)
 
+	CreatePlayModeToolBar();
 	// Set the pen and font before drawing the string on the window
 	pWind->SetPen(UI.PlayerInfoColor); 
 	pWind->SetFont(20, BOLD , BY_NAME, "Verdana");   
@@ -287,7 +288,7 @@ void Output::PrintPlayersInfo(string info)
 	///TODO: Calculate the Width and Height of the string if drawn using the current font 
 	//       (Use GetStringSize() window function) and set the "w" and "h" variables with its width and height
 
-
+	pWind->GetStringSize(w, h, info);
 
 	// Set the start X & Y coordinate of drawing the string
 	int x = UI.width - w - 20; // space 20 before the right-side of the window
@@ -295,8 +296,7 @@ void Output::PrintPlayersInfo(string info)
 	int y = (UI.ToolBarHeight - h) / 2; // in the Middle of the toolbar height
 
 	///TODO: Draw the string "info" in the specified location (x, y)
-
-
+	pWind->DrawString(x, y, info);
 
 }
 

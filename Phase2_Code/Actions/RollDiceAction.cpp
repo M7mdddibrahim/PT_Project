@@ -5,7 +5,7 @@
 
 #include <time.h> // used to in srand to generate random numbers with different seed
 
-RollDiceAction::RollDiceAction(ApplicationManager *pApp) : Action(pApp)
+RollDiceAction::RollDiceAction(ApplicationManager* pApp) : Action(pApp)
 {
 }
 
@@ -31,9 +31,9 @@ void RollDiceAction::Execute()
 			pManager->GetGrid()->GetOutput()->ClearStatusBar();
 			pManager->UpdateInterface();
 		}*/
-	// -- If not ended, do the following --:
+		// -- If not ended, do the following --:
 
-	// 2- Generate a random number from 1 to 6 --> This step is done for you
+		// 2- Generate a random number from 1 to 6 --> This step is done for you
 	srand((int)time(NULL)); // time is for different seed each run
 	int diceNumber = 1 + rand() % 6; // from 1 to 6 --> should change seed
 	// 3- Get the "current" player from pGrid
