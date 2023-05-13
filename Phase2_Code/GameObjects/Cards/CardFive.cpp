@@ -27,4 +27,6 @@ void CardFive::Apply(Grid* pGrid, Player* pPlayer)
 	pIn->GetPointClicked(x, y);
 	pOut->ClearStatusBar();
 	pPlayer->Move(pGrid,-pPlayer->getjustRolledDiceNum)
+
+
 }
