@@ -27,7 +27,10 @@ void Player::SetWallet(int wallet)
 	this->wallet = wallet;
 	// Make any needed validations
 }
-
+ int Player::getjustRolledDiceNum()
+{
+	return justRolledDiceNum;
+}
 int Player::GetWallet() const
 {
 	return wallet;
@@ -75,7 +78,7 @@ void Player::Move(Grid * pGrid, int diceNumber)
 	//    If yes, recharge wallet and reset the turnCount and return from the function (do NOT move)
 	
 	// 3- Set the justRolledDiceNum with the passed diceNumber
-
+	justRolledDiceNum = diceNumber;
 	// 4- Get the player current cell position, say "pos", and add to it the diceNumber (update the position)
 	//    Using the appropriate function of CellPosition class to update "pos"
 
