@@ -27,8 +27,9 @@ public:
 	Cell* GetCell() const;			// A getter for the pCell
 
 	void SetWallet(int wallet);		// A setter for the wallet
-	int getjustRolledDiceNum();     //A getter for dice no.
 	int GetWallet() const;			// a getter for the wallet
+
+	int getjustRolledDiceNum();     //A getter for dice no.
 
 	int GetTurnCount() const;		// A getter for the turnCount
 
