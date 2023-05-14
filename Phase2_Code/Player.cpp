@@ -41,6 +41,16 @@ int Player::GetTurnCount() const
 	return turnCount;
 }
 
+void Player::SetStepCount(int x)
+{
+	stepCount = (x > 0) ? x : 0;
+}
+
+void Player::SetTurnCount(int x)
+{
+	turnCount = (x < 3 && x > -1) ? x : 0;
+}
+
 // ====== Drawing Functions ======
 
 void Player::Draw(Output* pOut) const

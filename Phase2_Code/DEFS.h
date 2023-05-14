@@ -28,6 +28,7 @@ enum ActionType // The actions supported (add more as needed)
 	ROLL_DICE,		// Roll Dice Action
 	INPUT_DICE_VALUE, // Input Dice value Action
 	NEW_GAME,        // New Game Action
+	EXIT_PLAY,		
 	TO_DESIGN_MODE,	// Go to Design Mode
 
 	///TODO: Add more action types of Play Mode

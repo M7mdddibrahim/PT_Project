@@ -32,6 +32,10 @@ public:
 	int getjustRolledDiceNum();     //A getter for dice no.
 
 	int GetTurnCount() const;		// A getter for the turnCount
+	
+	void SetStepCount(int x);
+
+	void SetTurnCount(int x);
 
 	///TODO: You can add setters and getters for data members here (if needed)
 

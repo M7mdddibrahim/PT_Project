@@ -81,6 +81,22 @@ void Grid::UpdatePlayerCell(Player * player, const CellPosition & newPosition)
 	player->Draw(pOut);
 }
 
+void Grid::StartNewGame()
+{
+	for (int i = 0; i < MaxPlayerCount; i++)
+	{
+		PlayerList[i]->ClearDrawing(pOut);
+		Cell* newCell = CellList[NumVerticalCells - 1][0];  // Restarts players positions
+		PlayerList[i]->SetCell(newCell);    // setting every player cell (pCell ) with the newCell
+		PlayerList[i]->SetWallet(100); // Restarts players wallet,
+		PlayerList[i]->SetStepCount(0);   //  Restarts players StepCount,
+		PlayerList[i]->Draw(pOut); // drawing the player in the new cell 
+		PlayerList[i]->SetTurnCount(0); // setting TurnCount to zero
+	}
+	currPlayerNumber = 0;
+	endGame = false;
+}
+
 
 // ========= Setters and Getters Functions =========
 

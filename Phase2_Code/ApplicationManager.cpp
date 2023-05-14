@@ -7,6 +7,10 @@
 #include"CutCardAction.h"
 #include"PasteCardAction.h"
 #include "RollDiceAction.h"
+#include "ExitGame.h"
+#include "SwitchtoDesignMode.h"
+#include "SwitchtoPlayMode.h"
+#include "NewGame.h"
 
 ///TODO: Add #include for all action types
 
@@ -78,10 +82,12 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		break;
 
 	case EXIT:
+		pAct = new ExitGame(this);
 		break;
 
+
 	case TO_PLAY_MODE:
-		pOut->CreatePlayModeToolBar(); // temporary till you made its action class (CHANGE THIS LATTER)
+		pAct = new SwitchtoPlayMode(this); // temporary till you made its action class (CHANGE THIS LATTER)
 		break;
 
 	case ROLL_DICE:
@@ -89,8 +95,12 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct = new RollDiceAction(this);
 		break;
 
+	case NEW_GAME:
+		pAct = new NewGame(this);
+		break;
+
 	case TO_DESIGN_MODE:
-		pOut->CreateDesignModeToolBar(); // temporary till you made its action class (CHANGE THIS LATTER)
+		pAct = new SwitchtoDesignMode(this); // temporary till you made its action class (CHANGE THIS LATTER)
 		break;
 
 		
