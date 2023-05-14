@@ -28,6 +28,6 @@ void CardFive::Apply(Grid* pGrid, Player* pPlayer)
 	int x, y;
 	pIn->GetPointClicked(x, y);
 	pOut->ClearStatusBar();
-	pPlayer->Move(pGrid, -pPlayer->getjustRolledDiceNum());
+	pPlayer->Move(pGrid, (pPlayer->getjustRolledDiceNum())*-1);
 
 }

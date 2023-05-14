@@ -3,7 +3,7 @@
 class CardSix : public Card
 {
 	// CardSix Parameters:
-	int CelltoMoveto; // the wallet value to decrease from the player
+	CellPosition CelltoMoveto; // the wallet value to decrease from the player
 
 public:
 	CardSix(const CellPosition& pos); // A Constructor takes card position
