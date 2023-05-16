@@ -202,17 +202,17 @@ void Output::CreateDesignModeToolBar() const
 	// reoder them in UI_Info.h ==> enum DESIGN_MODE_ITEMS
 	// ** MAKE SURE THAT THE IMAGES ARE .JPG FILES **
 	string MenuItemImages[DESIGN_ITM_COUNT];
-	MenuItemImages[ITM_ADD_LADDER] = "images\\Menu_Ladder.jpg";	
-	MenuItemImages[ITM_ADD_SNAKE] = "images\\Menu_Snake.jpg";	
-	MenuItemImages[ITM_ADD_CARD] = "images\\Menu_Card.jpg";	
-	MenuItemImages[ITM_COPY_CARD] = "images\\Menu_Copy.jpg";
-	MenuItemImages[ITM_CUT_CARD] = "images\\Menu_Cut.jpg";
-	MenuItemImages[ITM_PASTE_CARD] = "images\\Menu_Paste.jpg";
-	MenuItemImages[ITM_DELETE_GAME] = "images\\Menu_Delete.jpg";
-	MenuItemImages[ITM_SAVE_GRID] = "images\\Menu_Save.jpg";
-	MenuItemImages[ITM_OPEN_GRID] = "images\\Menu_Open.jpg";
-	MenuItemImages[ITM_EXIT] = "images\\Menu_Exit.jpg";
-	MenuItemImages[ITM_SWITCH_TO_PLAY_MODE] = "images\\Menu_SwitchToGame.jpg";
+	MenuItemImages[ITM_ADD_LADDER] = ".\\images\\Menu_Ladder.jpg";	
+	MenuItemImages[ITM_ADD_SNAKE] = ".\\images\\Menu_Snake.jpg";	
+	MenuItemImages[ITM_ADD_CARD] = ".\\images\\Menu_Card.jpg";	
+	MenuItemImages[ITM_COPY_CARD] = ".\\images\\Menu_Copy.jpg";
+	MenuItemImages[ITM_CUT_CARD] = ".\\images\\Menu_Cut.jpg";
+	MenuItemImages[ITM_PASTE_CARD] = ".\\images\\Menu_Paste.jpg";
+	MenuItemImages[ITM_DELETE_GAME] = ".\\images\\Menu_Delete.jpg";
+	MenuItemImages[ITM_SAVE_GRID] = ".\\images\\Menu_Save.jpg";
+	MenuItemImages[ITM_OPEN_GRID] = ".\\images\\Menu_Open.jpg";
+	MenuItemImages[ITM_EXIT] = ".\\images\\Menu_Exit.jpg";
+	MenuItemImages[ITM_SWITCH_TO_PLAY_MODE] = ".\\images\\Menu_SwitchToGame.jpg";
 
 	///TODO: Prepare images for each menu item and add it to the list
 
@@ -241,11 +241,11 @@ void Output::CreatePlayModeToolBar() const
 	// reoder them in UI_Info.h ==> enum DESIGN_MODE_ITEMS
 	// ** MAKE SURE THAT THE IMAGES ARE .JPG FILES **
 	string MenuItemImages[PLAY_ITM_COUNT];
-	MenuItemImages[ITM_ROLL_DICE] = "images\\Menu_Dice.jpg";
-	MenuItemImages[ITM_INPUT_DICE_VALUE] = "images\\Menu_Roll_Dice.jpg";
-	MenuItemImages[ITM_NEW_GAME] = "images\\Menu_New_Game.jpg";
-	MenuItemImages[ITM_SWITCH_TO_DESIGN_MODE] = "images\\Menu_SwitchToGrid.jpg";
-	MenuItemImages[ITM_EXIT] = "images\\Menu_Exit.jpg";
+	MenuItemImages[ITM_ROLL_DICE] = ".\\images\\Menu_Dice.jpg";
+	MenuItemImages[ITM_INPUT_DICE_VALUE] = ".\\images\\Menu_Roll_Dice.jpg";
+	MenuItemImages[ITM_NEW_GAME] = ".\\images\\Menu_New_Game.jpg";
+	MenuItemImages[ITM_SWITCH_TO_DESIGN_MODE] = ".\\images\\Menu_SwitchToGrid.jpg";
+	MenuItemImages[ITM_EXIT_PLAY] = ".\\images\\Menu_Exit.jpg";
 
 	///TODO: Prepare images for each menu item and add it to the list
 

@@ -229,6 +229,33 @@
     <ClCompile Include="CutCardAction.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
+    <ClCompile Include="NewGame.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="SwitchtoDesignMode.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="SwitchtoPlayMode.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="ExitGame.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="SaveGridAction.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenGridAction.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="InputDiceValue.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="AddSnake.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="DeleteAction.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -383,6 +410,33 @@
       <Filter>Actions</Filter>
     </ClInclude>
     <ClInclude Include="CutCardAction.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="NewGame.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="SwitchtoDesignMode.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="SwitchtoPlayMode.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="ExitGame.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveGridAction.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenGridAction.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="InputDiceValue.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="AddSnake.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="DeleteAction.h">
       <Filter>Actions</Filter>
     </ClInclude>
   </ItemGroup>

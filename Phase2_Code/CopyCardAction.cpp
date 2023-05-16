@@ -1,37 +1,52 @@
 #include "CopyCardAction.h"
-#include "Input.h"
-#include "Output.h"
+#include"Output.h"
+#include"Input.h"
 #include"Card.h"
 
-CopyCardAction::CopyCardAction(ApplicationManager* pApp) :Action(pApp)
+CopyCardAction::CopyCardAction(ApplicationManager* pApp) : Action(pApp)
 {
-	pManager == pApp;
+	pManager = pApp;
 }
+
+CopyCardAction::~CopyCardAction()
+{
+}
+
+
 void CopyCardAction::ReadActionParameters()
 {
 	Grid* pGrid = pManager->GetGrid();
 	Output* pOut = pGrid->GetOutput();
 	Input* pIn = pGrid->GetInput();
-
+	pOut->PrintMessage("Copy Card Action, Click to continue....");
+	int x = 0; int y = 0;
+	pIn->GetPointClicked(x, y);
 	pOut->PrintMessage("Click on the Source Cell");
-	pIn->GetCellClicked();
-
+	CopyCard = pIn->GetCellClicked();
+	if (!(CopyCard.IsValidCell()))
+	{
+		pOut->PrintMessage("Please click on another cell");
+		CopyCard = pIn->GetCellClicked();
+	}
 	pOut->ClearStatusBar();
 
 }
+
 void CopyCardAction::Execute()
 {
-	/*Grid* pGrid = pManager->GetGrid();
-	Card* pCard
-	pCard->GetCardNumber();
-	pGrid->SetClipboard(pCard);
-	if(pCard == NULL)
+	ReadActionParameters();
+	Grid* pGrid = pManager->GetGrid();
+	Output* pOut = pGrid->GetOutput();
+	bool a = pGrid->GetCard(CopyCard);
+	if (a)
 	{
-		pGrid->PrintErrorMessage("Error! Cel Can not be copied ");
-	}*/
-	
-}
- CopyCardAction :: ~CopyCardAction()
-{
+		pGrid->SetClipboard(pGrid->GetCard(CopyCard));
+	}
+	if (!a)
+	{
+		pGrid->PrintErrorMessage("Copy Card Operation can not be done...");
+	}
+	pGrid->UpdateInterface();
+
 
 }

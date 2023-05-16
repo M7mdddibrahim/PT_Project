@@ -1,5 +1,3 @@
-#pragma once
-
 #include "GameObject.h"
 
 class Snake : public GameObject // inherited from GameObject
@@ -17,6 +15,8 @@ public:
 	virtual void Apply(Grid* pGrid, Player* pPlayer); // Applys the effect of the ladder by moving player to ladder's end cell
 
 	CellPosition GetEndPosition() const; // A getter for the endCellPos data member
+	virtual void Save(ofstream& outfile, Type gameobj);
+	virtual void Load(ifstream& infile);
 
 	virtual ~Snake(); // Virtual destructor
 };

@@ -2,7 +2,7 @@
 #include "Action.h"
 class CopyCardAction : public Action
 {
-	CellPosition CardPosition;
+	CellPosition CopyCard;
 public:
 	CopyCardAction(ApplicationManager* pApp);
 

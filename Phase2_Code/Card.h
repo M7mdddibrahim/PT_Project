@@ -13,7 +13,7 @@ protected:
 
 public:
 	Card(const CellPosition & pos); // A Constructor for card that takes the cell position of it
-
+	Card();
 	void SetCardNumber(int cnum);   // The setter of card number
 	int GetCardNumber();            // The getter of card number
 
@@ -24,7 +24,11 @@ public:
 	                                               // It is a virtual function (implementation depends on Card Type)
 
 	virtual void Apply(Grid* pGrid, Player* pPlayer);  // It applies the effect of the Card Type on the passed player
-	                                                   // It is a virtual function (implementation depends on Card Type)
+	         // It is a virtual function (implementation depends on Card Type)
+
+
+	virtual void Save(ofstream& OutFile, Type gameObject) = 0; // this calls function save and takes outfile and gameobject 
+	virtual void Load(ifstream& Infile) = 0; // this calls function load and takes infile
 
 	virtual ~Card(); // A Virtual Destructor
 };

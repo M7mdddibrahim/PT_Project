@@ -11,8 +11,15 @@
 class Cell;
 class GameObject;
 class Ladder;
+class Snake;
 class Card;
 class Player;
+enum Type
+{
+	Ladders,
+	Snakes,
+	Cards,
+};
 
 class Grid
 {
@@ -28,7 +35,6 @@ class Grid
 							// currPlayerNumber is: from 0 to MaxPlayerCount - 1
 
 	Card * Clipboard;	   // This is used in copy/cut/paste card (should be set in copy/cut and got in paste)
-
 	bool endGame;	       // A boolean indicating if the Game is ended or not (a player reaches the end cell of the grid or not)
 
 public:
@@ -41,13 +47,14 @@ public:
 	bool AddObjectToCell(GameObject * pNewObject);		 // Adds a GameObject to the Cell of its "position" data member
 	                                                     // only if the Cell does NOT already contain an object, 
 	                                                     // otherwise return false and don't add
-
+	void CleanGrid();
 	void RemoveObjectFromCell(const CellPosition & pos); // Removes the GameObject of the Cell of the passed "position"
 	                                                     // Note: You may need to change the return type of this function (Think)
 
 	void UpdatePlayerCell(Player * player, const CellPosition & newPosition); // Update the player's pCell with the CellList's Cell pointer of the "newPosition",
 	                                                                          // Clears the player's circle from the previous cell
 	    																	  // and  Draws it in the new cell
+	void StartNewGame();
 
 	// ========= Setters and Getters Functions =========
 
@@ -61,16 +68,26 @@ public:
 	bool GetEndGame() const;		 // A getter for endGame data member
 
 	void AdvanceCurrentPlayer();     // Increments the currPlayerNum and if reaches MaxPlayerCount reset to 0 (using %)
-
+	Card* GetCard(const CellPosition& cellposition);
+	Ladder* GetLadder(const CellPosition& cellposition);
+	Snake* GetSnake(const CellPosition& cellposition);
+	
 	///TODO: add any needed setter/getter "EXCEPT" ANY setters or getters of "CellList" or "PlayerList" (Forbidden for class Responsibilities)
+	int GetNumberOfLadders();
 
+	int GetNumberOfSnakes();
+
+	int GetNumberOfCards();
+	GameObject* GetGameObject(const CellPosition& position); // A getter for GameObject of the passed CellPosition 
 	// ========= Other Getters =========
 	
 	Player * GetCurrentPlayer() const;	// Gets a Pointer to the Current Player	                                    
 	Ladder * GetNextLadder(const CellPosition & position);  // Gets a Pointer to the first Ladder after the passed "position"
 
 	Snake* GetNextSnake(const CellPosition& position) const;
-
+	Card* GetNextCard(const CellPosition & position) const;
+	Player* getNextPlayer(const CellPosition& position);
+	Player* GetPoorest();
 	// ========= User Interface Functions =========
 
 	void UpdateInterface() const;		// It Updates the Grid according to the last state of the game
@@ -81,6 +98,7 @@ public:
 
 	void PrintErrorMessage(string msg); // Prints an error message on statusbar, Waits for mouse click then clears statusbar
 									    // We added this function once here because it is used many times by other classes
+	void SaveAll(ofstream& OutFile, Type gameobj);
 
 	~Grid(); // A destructor for any needed deallcations
 };

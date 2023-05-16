@@ -1,5 +1,5 @@
 #include "AddCardAction.h"
-
+#include"Cell.h"
 #include "Input.h"
 #include "Output.h"
 #include "CardOne.h"
@@ -16,7 +16,7 @@
 #include "CardTwelve.h"
 
 
-AddCardAction::AddCardAction(ApplicationManager *pApp) : Action(pApp)
+AddCardAction::AddCardAction(ApplicationManager* pApp) : Action(pApp)
 {
 	pManager == pApp;
 	// Initializes the pManager pointer of Action with the passed pointer
@@ -26,8 +26,8 @@ AddCardAction::~AddCardAction()
 {
 }
 
-void AddCardAction::ReadActionParameters() 
-{	
+void AddCardAction::ReadActionParameters()
+{
 
 	///TODO: Implement this function as mentioned in the guideline steps (numbered below) below
 
@@ -39,24 +39,41 @@ void AddCardAction::ReadActionParameters()
 	Grid* pGrid = pManager->GetGrid();
 	Output* pOut = pGrid->GetOutput();
 	Input* pIn = pGrid->GetInput();
-	
+
 	int x = 0; int y = 0;
 	// 2- Read the "cardNumber" parameter and set its data member
 	pOut->PrintMessage("Enter the Card Number : ");
 	cardNumber = pIn->GetInteger(pOut);
-	
-	
+
+
 	if ((cardNumber <= 0) || (cardNumber > 12))
 	{
 		pGrid->PrintErrorMessage("Error ! Please Renter Card Number ");
 		pIn->GetPointClicked(x, y);
 		pOut->PrintMessage("Renter Card Number : ");
+		cardNumber = pIn->GetInteger(pOut);
 	}
-	
+
 	// 3- Read the "cardPosition" parameter (its cell position) and set its data member
 	pOut->PrintMessage("Enter the Card Position ");
 	pIn->GetPointClicked(x, y);
 	cardPosition = pIn->GetCellClicked();
+	if (!(cardPosition.IsValidCell()))
+	{
+		pGrid->PrintErrorMessage("Please click on another cell...");
+		cardPosition = pIn->GetCellClicked();
+	}
+	if (cardPosition.GetCellNum() == 1)
+	{
+		pGrid->PrintErrorMessage("Error! You can not put game object in first cell, click on another cell..");
+		cardPosition = pIn->GetCellClicked();
+	}
+	if (cardPosition.GetCellNum() == 99)
+	{
+		pGrid->PrintErrorMessage("Error! You can not put game object in last cell, click on another cell..");
+		cardPosition = pIn->GetCellClicked();
+	}
+
 
 	// 4- Make the needed validations on the read parameters
 
@@ -64,8 +81,8 @@ void AddCardAction::ReadActionParameters()
 	pOut->ClearStatusBar();
 }
 
-void AddCardAction::Execute() 
-{	
+void AddCardAction::Execute()
+{
 	///TODO: Implement this function as mentioned in the guideline steps (numbered below) below
 
 	// == Here are some guideline steps (numbered below) to implement this function ==
@@ -73,7 +90,7 @@ void AddCardAction::Execute()
 	// 1- The first line of any Action Execution is to read its parameter first
 	ReadActionParameters();
 	// 2- Switch case on cardNumber data member and create the appropriate card object type
-	Card * pCard = NULL; // will point to the card object type
+	Card* pCard = NULL; // will point to the card object type
 	switch (cardNumber)
 	{
 	case 1:
@@ -131,7 +148,7 @@ void AddCardAction::Execute()
 
 		if (!added)
 		{
-			pGrid->PrintErrorMessage("Error: Cell already has a Card ! Click to continue ...");
+			pGrid->PrintErrorMessage("Error: Cell already has a Game object ! Click to continue ...");
 		}
 	}
 	if (!pCard)
@@ -140,7 +157,8 @@ void AddCardAction::Execute()
 		pGrid->PrintErrorMessage("Error! Please enter another Card Number ");
 
 	}
+}
+
+
 
 	// Here, the card is created and added to the GameObject of its Cell, so we finished executing the AddCardAction
-
-}

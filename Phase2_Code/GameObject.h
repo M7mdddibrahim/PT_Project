@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Grid.h"
+#include <iostream>
+using namespace std;
 
 // Base Class for All Game Objects ( ladders, snakes and cards )
 class GameObject
@@ -13,7 +15,7 @@ protected:
 public:
 
 	GameObject(const CellPosition & pos); // Constructor for initializing data members
-	
+	GameObject();
 	CellPosition GetPosition() const;     // A Getter for position
 
 	// ============ Virtual Functions ============
@@ -32,6 +34,8 @@ public:
 	
 	//virtual void Save(ofstream &OutFile) = 0;	// Saves the GameObject parameters to the file
 	//virtual void Load(ifstream &Infile) = 0;	// Loads and Reads the GameObject parameters from the file
+	virtual void Save(ofstream& outfile, Type gameobj) = 0;
+	virtual void Load(ifstream& infile) = 0;
 
 	virtual ~GameObject(); // Virtual destructor
 };

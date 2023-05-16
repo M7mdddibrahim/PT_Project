@@ -1,5 +1,5 @@
 #include "Grid.h"
-
+#include "snake.h"
 #include "Cell.h"
 #include "GameObject.h"
 #include "Ladder.h"
@@ -57,6 +57,17 @@ bool Grid::AddObjectToCell(GameObject * pNewObject)  // think if any validation 
 }
 
 
+void Grid::CleanGrid()
+{
+	for (int i = NumVerticalCells - 1; i >= 0; i--)
+	{
+		for (int j = 0; j < NumHorizontalCells; j++)
+		{
+			RemoveObjectFromCell(CellList[i][j]->GetCellPosition());
+		}
+	}
+}
+
 // Note: You may need to change the return type of this function (Think)
 void Grid::RemoveObjectFromCell(const CellPosition & pos)
 {
@@ -79,6 +90,22 @@ void Grid::UpdatePlayerCell(Player * player, const CellPosition & newPosition)
 
 	// Draw the player's circle on the new cell position
 	player->Draw(pOut);
+}
+
+void Grid::StartNewGame()
+{
+	for (int i = 0; i < MaxPlayerCount; i++)
+	{
+		PlayerList[i]->ClearDrawing(pOut);
+		Cell* newCell = CellList[NumVerticalCells - 1][0];  // Restarts players positions
+		PlayerList[i]->SetCell(newCell);    // setting every player cell (pCell ) with the newCell
+		PlayerList[i]->SetWallet(100); // Restarts players wallet,
+		PlayerList[i]->SetStepCount(0);   //  Restarts players StepCount,
+		PlayerList[i]->Draw(pOut); // drawing the player in the new cell 
+		PlayerList[i]->SetTurnCount(0); // setting TurnCount to zero
+	}
+	currPlayerNumber = 0;
+	endGame = false;
 }
 
 
@@ -121,6 +148,86 @@ void Grid::AdvanceCurrentPlayer()
 	currPlayerNumber = (currPlayerNumber + 1) % MaxPlayerCount; // this generates value from 0 to MaxPlayerCount - 1
 }
 
+Card* Grid::GetCard(const CellPosition& cellposition)
+{
+	if (cellposition.IsValidCell())
+	{
+		if (CellList[cellposition.VCell()][cellposition.HCell()])
+		{
+			return CellList[cellposition.VCell()][cellposition.HCell()]->HasCard();
+		}
+	}
+}
+
+Ladder* Grid::GetLadder(const CellPosition& cellposition)
+{
+	if (cellposition.IsValidCell())
+	{
+		if (CellList[cellposition.VCell()][cellposition.HCell()]->HasLadder())
+		{
+			return CellList[cellposition.VCell()][cellposition.HCell()]->HasLadder();
+		}
+	}
+
+}
+Snake* Grid::GetSnake(const CellPosition& cellposition)
+{
+	if (cellposition.IsValidCell())
+	{
+		if (CellList[cellposition.VCell()][cellposition.HCell()]->HasSnake())
+		{
+			return CellList[cellposition.VCell()][cellposition.HCell()]->HasSnake();
+		}
+	}
+}
+int Grid::GetNumberOfLadders()
+{
+	int NumberOfLadders = 0;
+	for (int i = NumVerticalCells - 1; i >= 0; i--)
+	{
+		for (int j = 0; j < NumHorizontalCells; j++)
+		{
+			GameObject* object = CellList[i][j]->GetGameObject();
+			if (dynamic_cast<Ladder*> (object))
+				NumberOfLadders++;
+		}
+	}
+	return NumberOfLadders;
+}
+int  Grid::GetNumberOfSnakes()
+{
+	int NumberOfSnakes = 0;
+	for (int i = NumVerticalCells - 1; i >= 0; i--)
+	{
+		for (int j = 0; j < NumHorizontalCells; j++)
+		{
+			GameObject* object = CellList[i][j]->GetGameObject();
+			if (dynamic_cast<Snake*> (object))
+				NumberOfSnakes++;
+		}
+	}
+	return NumberOfSnakes;
+}
+int Grid::GetNumberOfCards()
+{
+	int NumberOfCards = 0;
+	for (int i = NumVerticalCells - 1; i >= 0; i--)
+	{
+		for (int j = 0; j < NumHorizontalCells; j++)
+		{
+			GameObject* object = CellList[i][j]->GetGameObject();
+			if (dynamic_cast<Card*> (object))
+				NumberOfCards++;
+		}
+	}
+	return NumberOfCards;
+}
+
+GameObject* Grid::GetGameObject(const CellPosition& position)
+{
+	return CellList[position.VCell()][position.HCell()]->GetGameObject();
+}
+
 // ========= Other Getters =========
 
 
@@ -160,6 +267,57 @@ Snake* Grid::GetNextSnake(const CellPosition& position) const
 	}
 	return NULL; // not found
 
+}
+
+Card* Grid::GetNextCard(const CellPosition& position) const
+{
+	int startH = position.HCell();
+	for (int i = position.VCell(); i >= 0; i--)
+	{
+		for (int j = startH; j < NumHorizontalCells; j++)
+		{
+			if (CellList[i][j]->HasLadder() != NULL)
+				return CellList[i][j]->HasCard();
+		}
+		startH = 0;
+	}
+	return nullptr;
+}
+
+Player* Grid::getNextPlayer(const CellPosition& position)
+{
+	int count = 0;
+
+	Player* arr[MaxPlayerCount];//array of next players
+	for (int i = 0; i < MaxPlayerCount; i++)
+	{
+		if (PlayerList[i]->GetCell()->GetCellPosition().GetCellNum() > position.GetCellNum())
+		{
+			arr[count] = PlayerList[i];
+			count++;
+		}
+	}
+	if (count == 0)
+		return NULL;
+	Player* min = arr[0];
+	for (int j = 0; j < count; j++)
+	{
+		if (min->GetCell()->GetCellPosition().GetCellNum() > arr[j]->GetCell()->GetCellPosition().GetCellNum())
+		{
+			min = arr[j];
+		}
+	}
+	return min;
+}
+
+Player* Grid::GetPoorest()
+{
+	Player* poorest = PlayerList[0];
+	for (int i = 0; i < MaxPlayerCount; i++)
+	{
+		poorest = poorest->GetPoor(PlayerList[i]);
+	}
+	return poorest;
 }
 
 // ========= User Interface Functions =========
@@ -210,6 +368,18 @@ void Grid::UpdateInterface() const
 		// Note: UpdatePlayerCell() function --> already update drawing players in Play Mode
 		//       so we do NOT need draw all players again in UpdateInterface() of the Play mode
 		// In addition, cards/snakes/ladders do NOT change positions in Play Mode, so need to draw them here too
+	}
+}
+
+void Grid::SaveAll(ofstream& OutFile, Type gameobj) {
+	for (int i = NumVerticalCells - 1; i >= 0; i--)
+	{
+		for (int j = 0; j < NumHorizontalCells; j++)
+		{
+			GameObject* object = CellList[i][j]->GetGameObject();
+			if (object)
+				object->Save(OutFile, gameobj);
+		}
 	}
 }
 

@@ -127,11 +127,12 @@ ActionType Input::GetUserAction() const
 			int ClickedItemOrder = (x / UI.MenuItemWidth);
 			switch (ClickedItemOrder)
 			{
-			case ITM_EXIT: return EXIT;
+			case ITM_EXIT_PLAY: return EXIT;
 			case ITM_ROLL_DICE: return ROLL_DICE;
 			case ITM_INPUT_DICE_VALUE: return INPUT_DICE_VALUE;
 			case ITM_NEW_GAME: return NEW_GAME;
 			case ITM_SWITCH_TO_DESIGN_MODE:  return TO_DESIGN_MODE;
+
 
 
 

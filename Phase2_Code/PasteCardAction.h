@@ -2,6 +2,7 @@
 #include "Action.h"
 class PasteCardAction :public Action
 {
+	CellPosition PasteCard;
 public:
 	PasteCardAction(ApplicationManager* pApp);
 

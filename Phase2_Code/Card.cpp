@@ -5,6 +5,10 @@ Card::Card(const CellPosition & pos) : GameObject(pos) // sets the cell position
 {
 }
 
+Card::Card()
+{
+}
+
 void Card::SetCardNumber(int cnum)
 {
 	cardNumber = cnum; // needs validation

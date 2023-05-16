@@ -1,20 +1,20 @@
-#include "AddLadderAction.h"
+#include "AddSnake.h"
 
 #include "Input.h"
 #include "Output.h"
-#include "Ladder.h"
+#include "Snake.h"
 
-AddLadderAction::AddLadderAction(ApplicationManager* pApp) : Action(pApp)
+AddSnake::AddSnake(ApplicationManager* pApp) : Action(pApp)
 {
-	drawl = true;
+	draws = true;
 	// Initializes the pManager pointer of Action with the passed pointer
 }
 
-AddLadderAction::~AddLadderAction()
+AddSnake::~AddSnake()
 {
 }
 
-void AddLadderAction::ReadActionParameters()
+void AddSnake::ReadActionParameters()
 {
 	// Get a Pointer to the Input / Output Interfaces
 	Grid* pGrid = pManager->GetGrid();
@@ -22,45 +22,45 @@ void AddLadderAction::ReadActionParameters()
 	Input* pIn = pGrid->GetInput();
 
 	// Read the startPos parameter
-	pOut->PrintMessage("New Ladder: Click on its Start Cell ...");
+	pOut->PrintMessage("New snake: Click on its Start Cell ...");
 	startPos = pIn->GetCellClicked();
 
 	// Read the endPos parameter
-	pOut->PrintMessage("New Ladder: Click on its End Cell ...");
+	pOut->PrintMessage("New snake: Click on its End Cell ...");
 	endPos = pIn->GetCellClicked();
-	if (endPos.GetCellNum() < startPos.GetCellNum())
+	if (endPos.GetCellNum() > startPos.GetCellNum())
 	{
-		pGrid->PrintErrorMessage(" Error End cell cannot be smaller than start cell.");
+		pGrid->PrintErrorMessage(" Error End cell cannot be larger than start cell. ");
 		pOut->ClearStatusBar();
-		drawl = false;
+		draws = false;
 		return;
 	}
 	if (endPos.HCell() != startPos.HCell())
 	{
 		pGrid->PrintErrorMessage(" Error End cell  are not in the same column of start cell. ");
 		pOut->ClearStatusBar();
-		drawl = false;
+		draws = false;
 		return;
 	}
 	if (endPos.VCell() == startPos.VCell())
 	{
-		pGrid->PrintErrorMessage("Error End cell and start cell are in the same Row .");
+		pGrid->PrintErrorMessage(" Error End cell and start cell are in the same Row .");
 		pOut->ClearStatusBar();
-		drawl = false;
+		draws = false;
 		return;
 	}
 	if (endPos.IsValidCell() == false)
 	{
 		pGrid->PrintErrorMessage(" Error The end cell is invalid! Click to continue .");
 		pOut->ClearStatusBar();
-		drawl = false;
+		draws = false;
 		return;
 	}
 	if (startPos.IsValidCell() == false)
 	{
-		pGrid->PrintErrorMessage(" Error The start cell is invalid.");
+		pGrid->PrintErrorMessage(" Error The start cell is invalid! Click to continue.");
 		pOut->ClearStatusBar();
-		drawl = false;
+		draws = false;
 		return;
 	}
 
@@ -76,20 +76,20 @@ void AddLadderAction::ReadActionParameters()
 
 
 // Execute the action
-void AddLadderAction::Execute()
+void AddSnake::Execute()
 {
 	// The first line of any Action Execution is to read its parameter first 
 	// and hence initializes its data members
 	ReadActionParameters();
-	if (drawl = true)
+	if (draws = true)
 	{
 		// Create a Ladder object with the parameters read from the user
-		Ladder* pLadder = new Ladder(startPos, endPos);
+		Snake* pSnake = new Snake(startPos, endPos);
 
 		Grid* pGrid = pManager->GetGrid(); // We get a pointer to the Grid from the ApplicationManager
 
 		// Add the card object to the GameObject of its Cell:
-		bool added = pGrid->AddObjectToCell(pLadder);
+		bool added = pGrid->AddObjectToCell(pSnake);
 
 		// if the GameObject cannot be added
 		if (!added)
@@ -99,4 +99,5 @@ void AddLadderAction::Execute()
 		}
 		// Here, the ladder is created and added to the GameObject of its Cell, so we finished executing the AddLadderAction
 	}
+
 }

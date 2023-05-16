@@ -1,10 +1,16 @@
 #include "CardSix.h"
 #include "Ladder.h"
 #include "Snake.h"
+#include <fstream>
 
 CardSix::CardSix(const CellPosition& pos) : Card(pos) //Set the Cell Position of the Card
 {
 	cardNumber = 6; // Set the Card Number
+}
+
+CardSix::CardSix()
+{
+	cardNumber = 6;
 }
 
 CardSix:: ~CardSix(void)
@@ -54,3 +60,19 @@ void CardSix::Apply(Grid* pGrid, Player* pPlayer)
 		pIn->GetPointClicked(x, y);
 		pOut->ClearStatusBar();
 	}
+}
+void CardSix::Save(ofstream& outfile, Type gameobj)
+{
+	if (gameobj == Cards)
+	{
+		outfile << cardNumber << " " << position.GetCellNum() << endl;
+	}
+}
+
+void CardSix::Load(ifstream& infile)
+{
+	int  CellposNum;
+	infile >> CellposNum;
+	CellPosition Cellpos(CellposNum);
+	position = Cellpos;
+}
